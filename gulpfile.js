@@ -14,7 +14,7 @@ gulp.task('scripts', function(){
 });
 
 gulp.task('copy', function(){
-	return gulp.src(['index.html','img/**'], {base: './'})
+	return gulp.src(['index.html','img/**','css/print.css'], {base: './'})
 		.pipe(gulp.dest('dist'));
 });
 
