@@ -1,5 +1,12 @@
-var gulp = require('gulp');
+var gulp = require('gulp'),
+	uglify = require('gulp-uglify'),
+	rename = require('gulp-rename');
 
-gulp.task('default', function(){
-	console.log("gulp");
+gulp.task('scripts', function(){
+		return	gulp.src('js/*.js')
+						.pipe(uglify())
+				.pipe(rename('app.min.js'))
+						.pipe(gulp.dest('dist/js/'))
 });
+
+gulp.task('default', ['scripts']);
