@@ -2,6 +2,7 @@ var gulp = require('gulp'),
 	cleanCSS = require('gulp-clean-css');
 	uglify = require('gulp-uglify'),
 	concatify = require('gulp-concat'),
+	imageop = require('gulp-image-optimization'),
 	sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('scripts', function(){
@@ -13,8 +14,16 @@ gulp.task('scripts', function(){
 		.pipe(gulp.dest('dist/js'))
 });
 
+gulp.task('images', function(){
+	return gulp.src(['img/*','views/images/*.png'])
+		.pipe(imageop({
+			optimizationLevel: 5
+		}))
+		.pipe(gulp.dest('dist/img/'));
+});
+
 gulp.task('copy', function(){
-	return gulp.src(['index.html','img/**','css/print.css'], {base: './'})
+	return gulp.src(['index.html','css/print.css'], {base: './'})
 		.pipe(gulp.dest('dist'));
 });
 
@@ -27,4 +36,4 @@ gulp.task('minify-css', function(){
 		.pipe(gulp.dest('dist/css/'));
 });
 
-gulp.task('default', ['minify-css','scripts','copy']);
+gulp.task('default', ['minify-css','scripts','copy','images']);
